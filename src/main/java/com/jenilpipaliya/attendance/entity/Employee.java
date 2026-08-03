@@ -15,9 +15,19 @@ public class Employee {
     private String phone;
     @Column(nullable = false)
     private String address;
+    @Column(name = "reference_photo_path")
+    private String referencePhotoPath;
     @ManyToOne
     @JoinColumn(name = "manager_id")
     private Employee manager;
+
+    public String getReferencePhotoPath() {
+        return referencePhotoPath;
+    }
+
+    public void setReferencePhotoPath(String referencePhotoPath) {
+        this.referencePhotoPath = referencePhotoPath;
+    }
 
     public int getId() {
         return id;

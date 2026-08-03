@@ -16,18 +16,21 @@ public class EmployeeService {
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
+
     public void addEmployee(Employee employee) {
             employeeRepository.save(employee);
     }
 
-    public void deleteEmployee(Employee employee) {
-        employeeRepository.deleteById(employee.getId());
+    public void deleteEmployee(int id) {
+        Employee existingEmployee = employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException("No employee found with id " + id));
+        employeeRepository.delete(existingEmployee);
     }
 
-
-    public Optional<Employee> getEmployeeById(Employee employee) {
-        return employeeRepository.findById(employee.getId());
+    public Optional<Employee> getEmployeeById(int id) {
+        return employeeRepository.findById(id);
     }
+
     public List<Employee> getAllEmployee() {
         return employeeRepository.findAll();
     }
@@ -43,4 +46,6 @@ public class EmployeeService {
         employeeRepository.save(existingEmployee);
         return existingEmployee;
     }
+
+
 }
